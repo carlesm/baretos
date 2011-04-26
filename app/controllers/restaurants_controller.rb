@@ -1,4 +1,6 @@
 class RestaurantsController < ApplicationController
+include GeoKit::Geocoders
+
   # GET /restaurants
   # GET /restaurants.xml
   def index
@@ -45,6 +47,10 @@ class RestaurantsController < ApplicationController
   def create
     @restaurant = Restaurant.new(params[:restaurant])
 
+    loc = MultiGeocoder.geocode(@restaurant.adreca)
+    @restaurant.lat = loc.lat
+    @restaurant.lng = loc.lng
+
     respond_to do |format|
       if @restaurant.save
         flash[:notice] = 'Restaurant was successfully created.'
@@ -61,6 +67,11 @@ class RestaurantsController < ApplicationController
   # PUT /restaurants/1.xml
   def update
     @restaurant = Restaurant.find(params[:id])
+
+    loc = MultiGeocoder.geocode(@restaurant.adreca)
+    @restaurant.lat = loc.lat
+    @restaurant.lng = loc.lng
+
 
     respond_to do |format|
       if @restaurant.update_attributes(params[:restaurant])
@@ -85,4 +96,13 @@ class RestaurantsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+
+def search
+    loc = IpGeocoder.geocode(request.remote_ip)
+    @location = []
+    @location << loc.street_address << loc.city << loc.country_code
+  end
+
+
 end
