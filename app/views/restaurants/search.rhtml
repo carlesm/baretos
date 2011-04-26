@@ -1,0 +1,7 @@
+<h1>Entra lloc a buscar</h1>
+Entra un lloc i un radi de cerca
+<% form_tag :action => 'find_closest' do %>
+<%= text_field_tag 'location', @location.compact.join(',')  %>
+<%= select_tag 'radius', options_for_select({'5 milles' => 5, '10 milles' => 10, '25 milles' => 15}, 5) %>
+<%= submit_tag 'cerca' %>
+<% end %>
