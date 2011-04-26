@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110413150656) do
+ActiveRecord::Schema.define(:version => 20110426103425) do
 
   create_table "critics", :force => true do |t|
     t.string   "nom"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(:version => 20110413150656) do
     t.string   "adreca"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "lat"
+    t.float    "lng"
   end
 
 end
