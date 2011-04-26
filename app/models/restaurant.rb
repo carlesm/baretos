@@ -6,6 +6,18 @@ class Restaurant < ActiveRecord::Base
   has_many :resenyas
   has_many :critics, :through => :resenyas
   
+ 
+  def find_closest
+    @location = MultiGeocoder.geocode(params[:location])
+    if @location.success
+        @restaurants= Restaurant.find(:all, 
+		:origin => [@location.lat, @location.lng], 
+        	:conditions => "distance < #{params[:radius]}", 						
+		:order=>'distance')
+    end    
+  end
+
+
     def mitja_punts
           resenyas.average(:puntuacio) || BigDecimal("0.0")
       end
