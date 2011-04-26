@@ -1,4 +1,6 @@
 class Restaurant < ActiveRecord::Base
+  acts_as_mappable 
+
   validates_presence_of :nom
   
   has_many :resenyas
