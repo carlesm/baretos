@@ -98,6 +98,18 @@ include GeoKit::Geocoders
   end
 
 
+ 
+  def find_closest
+    @location = MultiGeocoder.geocode(params[:location])
+    if @location.success
+        @restaurants= Restaurant.find(:all, 
+		:origin => [@location.lat, @location.lng], 
+        	:conditions => "distance < #{params[:radius]}", 						
+		:order=>'distance')
+    end    
+  end
+
+
 def search
     loc = IpGeocoder.geocode(request.remote_ip)
     @location = []

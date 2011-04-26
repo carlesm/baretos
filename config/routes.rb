@@ -4,7 +4,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :critics
 
   map.resources :restaurants, :has_many=> :resenyas, :collection  => {
-								:search => :any
+								:search => :any,
+								:find_closest => :any
 							}
 
 
