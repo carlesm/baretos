@@ -1,0 +1,11 @@
+<!-- <h1><%= h @restaurants.size %> restaurants prop teu</h1> -->
+<ol>
+<% @restaurants.each do |restaurant| %>
+<li><%= restaurant.nom%><br/></li>
+<% end %>
+</ol>
+
+<%= GMap.header %>
+<%= javascript_include_tag("markerGroup") %>
+<%= @map.to_html%>
+<%= @map.div(:width => 500, :height => 450)%>
