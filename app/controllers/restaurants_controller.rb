@@ -1,5 +1,6 @@
 class RestaurantsController < ApplicationController
 include GeoKit::Geocoders
+include ERB::Util
 
   # GET /restaurants
   # GET /restaurants.xml
