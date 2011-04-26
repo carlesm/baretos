@@ -107,6 +107,44 @@ include GeoKit::Geocoders
         	:conditions => "distance < #{params[:radius]}", 						
 		:order=>'distance')
     end    
+
+    @map = GMap.new("map_div")
+    @map.control_init(:large_map => true, :map_type => true)  
+      
+    # create marker for the source location
+    @map.icon_global_init( GIcon.new(:image => "http://www.google.com/mapfiles/ms/icons/red-pushpin.png", 
+					:shadow => "http://www.google.com/mapfiles/shadow50.png", 
+					:icon_size => GSize.new(32,32), 
+					:shadow_size => GSize.new(37,32), 
+					:icon_anchor => GPoint.new(9,32),
+					:info_window_anchor => GPoint.new(9,2), 
+					:info_shadow_anchor => GPoint.new(18,25)),
+                "icon_source")
+      icon_source = Variable.new("icon_source")      
+      source = GMarker.new([@location.lat, @location.lng], 
+                :title => 'Source',
+                :info_window => "Restaurants a <br>#{params[:radius]} milles al voltant",
+                :icon => icon_source)      
+      @map.overlay_init(source)
+
+      # create markers one for each location found
+      markers = []
+      @restaurants.each { |restaurant|
+        info = <<EOS 
+<em>#{restaurant.nom}</em><br/>
+#{restaurant.distance_from(@location).round} milles<br/>
+<a href="http://maps.google.com/maps?saddr=#{u(@location.to_geocodeable_s)}&daddr=#{u(restaurant.adreca)}>directions here from source</a>
+EOS
+        markers << GMarker.new([restaurant.lat, restaurant.lng], :title => restaurant.nom, :info_window => info)
+      }
+      @map.overlay_global_init(GMarkerGroup.new(true, markers),"restaurant_markers")   
+    
+
+      # zoom to the source
+      @map.center_zoom_init([@location.lat, @location.lng], 12) 
+
+
+
   end
 
 
