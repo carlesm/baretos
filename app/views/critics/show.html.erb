@@ -1,0 +1,13 @@
+<p>
+  <b>Nom:</b>
+  <%=h @critic.nom %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%=h @critic.email %>
+</p>
+
+
+<%= link_to 'Edit', edit_critic_path(@critic) %> |
+<%= link_to 'Back', critics_path %>

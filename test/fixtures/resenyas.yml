@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  restaurant_id: 1
+  critic_id: 1
+  puntuacio: 9.99
+  comentari: MyString
+
+two:
+  restaurant_id: 1
+  critic_id: 1
+  puntuacio: 9.99
+  comentari: MyString

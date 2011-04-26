@@ -1,0 +1,21 @@
+<table>
+<% for resenya in resenyas -%>
+  <tr id="<%= dom_id(resenya ) %>">
+    <td>
+      <%= link_to resenya.critic.nom, resenya.critic  %>
+    </td>
+    <td align="right">
+        <%= number_with_precision(resenya.puntuacio, :precision => 1)  %>
+    </td>
+    <td align="left">
+        <%= resenya.comentari  %>
+    </td>
+  </tr>
+<% end -%>
+  <tr>
+    <td align="right" colspan="2">        
+      <strong>Mitja</strong>: 
+        <%= number_with_precision(restaurant.mitja_punts, :precision => 1)  %>
+    </td>
+  </tr>
+</table>

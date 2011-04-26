@@ -1,0 +1,22 @@
+<h1>Listing critics</h1>
+
+<table>
+  <tr>
+    <th>Nom</th>
+    <th>Email</th>
+  </tr>
+
+<% @critics.each do |critic| %>
+  <tr>
+    <td><%=h critic.nom %></td>
+    <td><%=h critic.email %></td>
+    <td><%= link_to 'Show', critic %></td>
+    <td><%= link_to 'Edit', edit_critic_path(critic) %></td>
+    <td><%= link_to 'Destroy', critic, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New critic', new_critic_path %>

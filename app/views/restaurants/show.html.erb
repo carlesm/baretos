@@ -1,0 +1,35 @@
+<p>
+  <b>Nom:</b>
+  <%=h @restaurant.nom %>
+</p>
+
+<p>
+  <b>Adreca:</b>
+  <%=h @restaurant.adreca %>
+</p>
+
+
+<%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
+<%= link_to 'Back', restaurants_path %>
+
+<h3>Resenyes</h3>
+<div id="resenyas">
+  <%= render :partial => 'resenyas',
+             :locals  => {:resenyas=> @restaurant.resenyas, 
+                          :restaurant => @restaurant} %>
+</div>
+
+
+<h3>Afegir resenya al restaurant</h3>
+
+<p style="color: red"><%= flash[:error] %></p>
+
+<% form_for [@restaurant, @resenya] do |f| -%>
+  <p>
+    <%= f.collection_select :critic_id, @critics, :id, :nom%>
+    puntua amb <%= f.text_field :puntuacio, :size => 3 %>
+    <br />
+    i comenta <%= f.text_field :comentari %>
+  </p>
+  <%= f.submit 'Afegir Resenya' %>
+<% end -%>
